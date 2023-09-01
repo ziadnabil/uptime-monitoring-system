@@ -11,6 +11,7 @@ const cron = require("node-cron")
 // Data Base
 const db = require('./models/index');
 const limiter = require('./config/limiter');
+const { schedulePolling } = require('./services/pollingRequest.service');
 
 //DB options
 if (!process.env.NODE_ENV.includes('test')) {
@@ -61,5 +62,7 @@ app.use(router)
 // error handler always last thing to use
 app.use(errorHandler)
 app.listen(PORT, () => console.log(`server is running  in ${process.env.NODE_ENV} on port ${PORT}`))
+
+schedulePolling();
 
 module.exports = app

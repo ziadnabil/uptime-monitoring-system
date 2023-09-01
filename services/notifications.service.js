@@ -64,7 +64,7 @@ get_params = (userType, user, checkUrl) => ({
   userId: user.id,
 });
 
-const get_account_notifications = (userType, checkUrl) => ({
+const get_account_notifications = (userType) => ({
   //#region account
   registered: (user) =>
     send_save_notif_to({
@@ -78,17 +78,19 @@ const get_account_notifications = (userType, checkUrl) => ({
       body: 'Your account has been disabled',
       type: `${userType}_account_disabled`,
     }),
-  system_is_up: (user) =>
+  system_is_up: (user, check) =>
     send_save_notif_to({
-      ...get_params(userType, user, checkUrl),
+      ...get_params(userType, user),
       body: 'Your url is up now',
       type: `${checkUrl}_is_working_now`,
+      check: check.name
     }),
-  system_is_down: (user) =>
+  system_is_down: (user, check) =>
     send_save_notif_to({
       ...get_params(userType, user, checkUrl),
       body: 'Your url is down now',
       type: `${checkUrl}_is_down_now`,
+      check: check.name
     }),
   //#endregion account
 });

@@ -1,5 +1,3 @@
-const { AllowedProtocols } = require("../../helpers/enums");
-
 module.exports = (sequelize, Sequelize) => {
   const MonitoringResults = sequelize.define(
     'MonitoringResults',
@@ -9,49 +7,25 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true,
         },
-        name: {
+        availability: {
             type: Sequelize.STRING,
             allowNull: false,
-          },
-          url: {
-            type: Sequelize.STRING,
-            allowNull: false,
-          },
-          protocol: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            validate: {
-                isIn: {
-                    args: [
-                        Object.values(AllowedProtocols)
-                    ],
-                    msg: `Protocol should be ${Object.values(AllowedProtocols)}`
-                }
-            }
         },
-        path: {
-            type: Sequelize.STRING,
-            allowNull: true,
-        },
-        port: {
-            type: Sequelize.STRING,
-            allowNull: true,
-        },
-        webhook: {
-            type: Sequelize.STRING,
-            allowNull: true,
-        },
-        timeout: {
+        outages: {
             type: Sequelize.INTEGER,
-            defaultValue: 5,
+            defaultValue: 0,
         },
-        interval: {
+        downtime: {
             type: Sequelize.INTEGER,
-            defaultValue: 600,
+            defaultValue: 0,
         },
-        threshold: {
+        uptime: {
             type: Sequelize.INTEGER,
-            defaultValue: 1,
+            defaultValue: 0,
+        },
+        responseTime: {
+            type: Sequelize.INTEGER,
+            defaultValue: 0,
         },
         status: {
             type: Sequelize.STRING,
@@ -62,6 +36,7 @@ module.exports = (sequelize, Sequelize) => {
   );
 
   MonitoringResults.associate = (models) => {
+    MonitoringResults.belongsTo(models.Check);
   };
 
   return MonitoringResults;

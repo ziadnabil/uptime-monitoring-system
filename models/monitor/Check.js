@@ -63,6 +63,7 @@ module.exports = (sequelize, Sequelize) => {
 
   Check.associate = (models) => {
     Check.belongsTo(models.User);
+    Check.hasMany(models.MonitoringResults);
   };
 
   return Check;

@@ -1,0 +1,46 @@
+{
+    "env": {
+        "es5": true,
+        "node": true,
+        "mocha": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:import/recommended"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "promise",
+        "babel",
+        "node",
+        "mocha"
+    ],
+    "rules": {
+        "no-console": "off",
+        "comma-dangle": "off",
+        "no-underscore-dangle": "off",
+        "no-param-reassign": "off",
+        "no-return-assign": "off",
+        "semi": "error",
+        "indent": [
+            "warn",
+            4,
+            {
+                "SwitchCase": 2,
+                "MemberExpression": 2
+            }
+        ],
+        "camelcase": "warn",
+        "quotes": [
+            "warn",
+            "single",
+            {
+                "allowTemplateLiterals": true
+            }
+        ]
+    }
+}

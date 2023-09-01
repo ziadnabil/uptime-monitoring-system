@@ -1,0 +1,61 @@
+{
+  "name": "monitoring",
+  "version": "1.0.1",
+  "description": "uptime monitor system",
+  "main": "server.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha --recursive --exit -timeout 30000",
+    "start": "pm2 start ecosystem.config.js",
+    "start:development": "npm run start -- --only uptime-development",
+    "start:staging": "npm run start -- --only uptime-staging",
+    "start:production": "npm run start -- --only uptime-production",
+    "local": "NODE_ENV=local nodemon  --trace-warnings server",
+    "test:local": "NODE_ENV=testlocal mocha --recursive --exit -timeout 30000"
+  },
+  "author": "Ziad",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "axios": "^0.25.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "exceljs": "^4.3.0",
+    "express": "^4.18.2",
+    "express-formidable": "^1.2.0",
+    "express-rate-limit": "^6.7.0",
+    "firebase": "^8.6.8",
+    "firebase-admin": "^10.0.1",
+    "fs": "^0.0.1-security",
+    "generate-password": "^1.7.0",
+    "helmet": "^7.0.0",
+    "ip": "^1.1.8",
+    "joi": "^17.6.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
+    "morgan": "^1.10.0",
+    "mustache": "^4.2.0",
+    "node-cron": "^3.0.2",
+    "nodemailer": "^6.9.1",
+    "nodemon": "^2.0.19",
+    "otplib": "^12.0.1",
+    "pg": "^8.7.1",
+    "request": "^2.88.2",
+    "request-ip": "^3.3.0",
+    "request-promise": "^4.2.6",
+    "sequelize": "^6.7.0",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "@babel/helper-compilation-targets": "^7.18.9",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "eslint": "^8.36.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "mocha": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=16.9"
+  }
+}

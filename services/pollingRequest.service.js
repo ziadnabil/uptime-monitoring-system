@@ -11,7 +11,7 @@ async function pollUrlCheck(check) {
     });
 
     // Update the status and responseTime in the database
-    await db.UrlCheck.update(
+    await db.Check.update(
       {
         status: 'up',
         responseTime: response.headers['x-response-time'],
@@ -27,7 +27,7 @@ async function pollUrlCheck(check) {
     // Handle errors, mark as down, and send a notification
     console.error('Polling error:', error);
     // Update the status in the database
-    await db.UrlCheck.update(
+    await db.Check.update(
       {
         status: 'down',
       },
@@ -40,7 +40,7 @@ async function pollUrlCheck(check) {
 
 // Schedule polling for all URL checks at their specified intervals
 async function schedulePolling() {
-  const checks = await db.UrlCheck.findAll();
+  const checks = await db.Check.findAll();
 
   checks.forEach(check => {
     cron.schedule(`*/${check.interval} * * * *`, () => {

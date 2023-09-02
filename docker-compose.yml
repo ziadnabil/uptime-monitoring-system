@@ -1,0 +1,17 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 7101998
+      POSTGRES_DB: monitoring_system
+    ports:
+      - '5432:5432'

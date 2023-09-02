@@ -19,6 +19,7 @@ async function pollUrlCheck(check) {
       { where: { id: check.id } }
     );
 
+    db.MonitoringResults.create({ uptime, responseTime: response.headers['x-response-time'], status: 'up', checkId: check.id})
     // Check if it was previously down and send an "up" notification
     if (check.status === 'down') {
       notifyService.send_notification_to.user.system_is_up(user, check);
@@ -33,6 +34,8 @@ async function pollUrlCheck(check) {
       },
       { where: { id: check.id } }
     );
+    db.MonitoringResults.create({ downtime, status: 'down', checkId: check.id})
+
     // Send a "down" notification
     notifyService.send_notification_to.user.system_is_down(user, check);
 }

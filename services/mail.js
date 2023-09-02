@@ -39,8 +39,39 @@ async function sendCodeToEmail(emailReciever, code, purpose) {
   return response;
 }
 
+async function sendSystemUpdateToEmail(emailReciever, check, purpose) {
+  let emailObject;
+  if (purpose === 'up') {
+    emailObject = {
+      from: process.env.emailFrom, 
+      to: emailReciever,
+      subject: `Update on your ${check.name} monitoring system`, 
+      text: `Your ${check.name} is up now with url ${check.url}`, 
+    };
+  } else if (purpose === 'down') {
+    emailObject = {
+      from: process.env.emailFrom, 
+      to: emailReciever, 
+      subject: `Update on your ${check.name} monitoring system`, 
+      text: `Your ${check.name} is down now with url ${check.url}`, 
+    };
+  }
+  const response = { status: 'success' };
+
+  await transporter.sendMail(emailObject, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+
+  return response;
+}
+
 module.exports = {
   sendCodeToEmail,
+  sendSystemUpdateToEmail
 };
 
 

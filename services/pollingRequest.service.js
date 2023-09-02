@@ -2,6 +2,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 const db = require('../models/index')
 const notifyService = require('./notifications.service');
+const { sendSystemUpdateToEmail } = require('../services/mail');
 
 async function pollUrlCheck(check) {
   try {
@@ -22,7 +23,10 @@ async function pollUrlCheck(check) {
     db.MonitoringResults.create({ uptime, responseTime: response.headers['x-response-time'], status: 'up', checkId: check.id})
     // Check if it was previously down and send an "up" notification
     if (check.status === 'down') {
+      // Send an "up" notification
       notifyService.send_notification_to.user.system_is_up(user, check);
+      // Send an "up" email
+      await sendSystemUpdateToEmail(email, check, 'down');
     }
   } catch (error) {
     // Handle errors, mark as down, and send a notification
@@ -38,6 +42,8 @@ async function pollUrlCheck(check) {
 
     // Send a "down" notification
     notifyService.send_notification_to.user.system_is_down(user, check);
+    // Send a "down" email
+    await sendSystemUpdateToEmail(email, check, 'up');
 }
 }
 

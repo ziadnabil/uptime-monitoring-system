@@ -1,12 +1,17 @@
 # Monitoring System
 
 # Environment variables
--in the config folder:
+- in the config folder:
     - .env.local to run project locally
+
     - .env.development for development stage on server
+
     - .env.staging for staging stage on server
+
     - .env.production for production stage on server
+
     - .env.test for running unit tests with ci/cd
+    
     - .env.testlocal for running unit tests locally
 
 -check the .env example in the config folder (config.env.example)

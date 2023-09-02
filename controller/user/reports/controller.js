@@ -2,7 +2,7 @@ const db = require('../../../models/index');
 const utils = require('../../utils');
 const { UnexpectedError, BadRequest } = require('../../../utils/Errors');
 const standardResponse = require('../../../utils/standardResponse');
-const reportService = require('../../../services/reprotService');
+const reportService = require('../../../services/reprotService.service');
 
 module.exports = {
 

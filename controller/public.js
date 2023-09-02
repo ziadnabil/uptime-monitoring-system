@@ -1,7 +1,7 @@
 const db = require('../models/index');
 const { UnexpectedError, InvalidCredentials } = require('../utils/Errors');
 const standardResponse = require('../utils/standardResponse');
-const { sendCodeToEmail } = require('../services/mail');
+const { sendCodeToEmail } = require('../services/mail.service');
 const utils = require('./utils');
 const { hotp } = require('otplib');
 

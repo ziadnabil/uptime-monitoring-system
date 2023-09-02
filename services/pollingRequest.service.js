@@ -2,7 +2,8 @@ const cron = require('node-cron');
 const axios = require('axios');
 const db = require('../models/index')
 const notifyService = require('./notifications.service');
-const { sendSystemUpdateToEmail } = require('../services/mail');
+const { sendSystemUpdateToEmail } = require('./mail.service');
+const sendPushoverNotification = require('./pushOverNotification.service');
 
 async function pollUrlCheck(check) {
   try {
@@ -27,6 +28,7 @@ async function pollUrlCheck(check) {
       notifyService.send_notification_to.user.system_is_up(user, check);
       // Send an "up" email
       await sendSystemUpdateToEmail(email, check, 'down');
+      await sendPushoverNotification(check.pushOverUserKey, 'URL is down');
     }
   } catch (error) {
     // Handle errors, mark as down, and send a notification
@@ -44,6 +46,8 @@ async function pollUrlCheck(check) {
     notifyService.send_notification_to.user.system_is_down(user, check);
     // Send a "down" email
     await sendSystemUpdateToEmail(email, check, 'up');
+    await sendPushoverNotification(check.pushOverUserKey, 'URL is up');
+
 }
 }
 

@@ -57,6 +57,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.JSON, // Use JSON data type for key-value pairs
             allowNull: true,
         },
+        pushOverUserKey: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
     },
     { freezeTableName: true, timestamps: true },
   );

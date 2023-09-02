@@ -28,6 +28,12 @@ module.exports = {
 
     return entry
   },
+
+  findOneEntryOrNull: async (where, dbTable, exclude = null) => {
+    if (!dbTable || !where) return
+    let entry = await db[dbTable].findOne({ where, attributes: { exclude } });
+    return entry
+  },
   
   checkEmail: async function (email) {
     return new Promise(async (resolve, reject) => {
